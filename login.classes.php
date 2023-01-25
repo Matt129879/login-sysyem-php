@@ -17,7 +17,6 @@ class Login extends Dbh {
         {
             $stmt = null;
             header("location: ../login.php?error=usernotfound");
-            sendWebhook("https://discordapp.com/api/webhooks/1063562178415841360/fR4P1eZyo1fITzSlmmoauvoKutzzLSUngTzbYSFB8IBfZLO8bBmpM1PL11IWGotyFCj5", "Login Failed", "#ED1D24", "Username", $uid );
             exit();
         }
 
@@ -29,7 +28,7 @@ class Login extends Dbh {
         {
             $stmt = null;
             header("location: ../login.php?error=wrongpassword");
-            sendWebhook("https://discordapp.com/api/webhooks/1063562178415841360/fR4P1eZyo1fITzSlmmoauvoKutzzLSUngTzbYSFB8IBfZLO8bBmpM1PL11IWGotyFCj5", "Login Failed", "#ED1D24", "Username", $uid );
+            
             exit();
         }
         else if($checkPwd == true){
@@ -46,7 +45,7 @@ class Login extends Dbh {
             {
                 $stmt = null;
                 header("location: ../login.php?error=usernotfound");
-                sendWebhook("https://discordapp.com/api/webhooks/1063562178415841360/fR4P1eZyo1fITzSlmmoauvoKutzzLSUngTzbYSFB8IBfZLO8bBmpM1PL11IWGotyFCj5", "Login Failed", "#ED1D24", "Username", $uid );
+                
                 exit();
             }
 
@@ -65,7 +64,7 @@ class Login extends Dbh {
             }
             $stmt = null;
 
-            sendWebhook("https://discordapp.com/api/webhooks/1063562178415841360/fR4P1eZyo1fITzSlmmoauvoKutzzLSUngTzbYSFB8IBfZLO8bBmpM1PL11IWGotyFCj5", "Login Success", "#1CE815", "Username", $uid );
+            
         }
 
         $stmt = null;
