@@ -1,20 +1,6 @@
 <?php
-require_once "../webhooks/discord.php";
 class Login extends Dbh {
 
-    public function getKey($uid){
-        $stmt = $this->connect()->prepare('SELECT * FROM keylist WHERE key_uid = ?;');
-
-         if(!$stmt->execute(array($uid)))
-        {
-            $stmt = null;
-            // header(?error=stmtfailed)
-            exit();
-        }
-        $userinfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $key = $userinfo[0]['license_key'];
-        return $key;
-    }
 
     protected function getUser($uid, $pwd){
         
