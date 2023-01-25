@@ -4,7 +4,7 @@ class Login extends Dbh {
 
     protected function getUser($uid, $pwd){
         
-        $stmt = $this->connect()->prepare('SELECT users_pwd FROM users WHERE users_uid = ? OR users_pwd = ?;');
+        $stmt = $this->connect()->prepare('SELECT password FROM accounts WHERE login = ? OR password = ?;');
 
         if(!$stmt->execute(array($uid, $pwd)))
         {
@@ -22,7 +22,7 @@ class Login extends Dbh {
 
 
         $pwdHashed = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $checkPwd = password_verify($pwd, $pwdHashed[0]["users_pwd"]);
+        $checkPwd = password_verify($pwd, $pwdHashed[0]["password"]);
 
         if($checkPwd == false)
         {
@@ -32,7 +32,7 @@ class Login extends Dbh {
             exit();
         }
         else if($checkPwd == true){
-            $stmt = $this->connect()->prepare('SELECT * FROM users WHERE users_uid= ? OR users_email = ? AND users_pwd = ?;'); 
+            $stmt = $this->connect()->prepare('SELECT * FROM accounts WHERE login= ? OR email = ? AND password = ?;'); 
 
             if(!$stmt->execute(array($uid, $uid, $pwd)))
             {
@@ -52,16 +52,11 @@ class Login extends Dbh {
             $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             session_start();
-            $_SESSION["userid"] = $user[0]["users_id"];
-            $_SESSION["username"] = $user[0]["users_name"];
-            $_SESSION["useruid"] = $user[0]["users_uid"];
-            $_SESSION["useremail"] = $user[0]["users_email"];
-            $_SESSION["userkey"] = $user[0]["users_key"];
-            $_SESSION["userjoindate"] = $user[0]["users_joindate"];
+            $_SESSION["userId"] = $user[0]["id"];
+            $_SESSION["userName"] = $user[0]["login"];
+            $_SESSION["userPassword"] = $user[0]["password"];
+            $_SESSION["userEmail"] = $user[0]["email"];
 
-            if($_SESSION["userkey"] === null){
-                $_SESSION["userkey"] = "·ERROR·";
-            }
             $stmt = null;
 
             
